@@ -3,3 +3,5 @@
 % Output: compact feature
 
 function compactWrapper()
+
+end

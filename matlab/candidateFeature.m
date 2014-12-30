@@ -4,3 +4,5 @@
 % Output: candidate feature set
 
 function candidateFeature()
+
+end

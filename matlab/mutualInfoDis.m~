@@ -1,0 +1,32 @@
+% feature-selection-mRMR
+% Created by Jiahong K. Chen
+
+% Input: x, y two vector of discrete data
+% Output: mutual information of x and y
+
+function mi = mutualInfoDis(x, y)
+
+% reshape x and y into column vector
+x       = x(:);
+y       = y(:);
+
+% shift x and y to 1:max([x;y])
+lo      = min( [ x; y ] );
+up      = max( [ x; y ] );
+x       = x - lo + 1;
+y       = y - lo + 1;
+
+% Joint entropy
+idx     = (1:n);
+tabX    = sparse(idx, x, 1, n, k, n);
+tabY    = sparse(idx, x, 1, n, k, n);
+Pxy 
+
+
+
+
+
+
+
+
+end
