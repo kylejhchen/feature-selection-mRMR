@@ -1,0 +1,9 @@
+% feature-selection-mRMR
+% Created by Jiahong K. Chen
+
+% Input: X dim-by-k, matrix of discrete data 
+%        y dim-by-1, discrete data
+% Output: bMI =I(X,y) = mutual information of x and y
+
+
+function bMI = bundleMI()
