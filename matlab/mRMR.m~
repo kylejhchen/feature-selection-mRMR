@@ -18,6 +18,7 @@ remainFea   = (1:dimF);
 
 % mutual info of dataX and dataC, dimFea-by-1
 Ixc     = bundleMI(dataX, dataC);
+sort(Ixc)
 
 % select the first feature with max-Rev
 [~, idxF]          = max(Ixc);
@@ -35,7 +36,7 @@ for fea = 2 : nSelect
     
     Ixx(:, fea-1) = bundleMI( dataX(:,remainFea) , dataX(:,slctFea(fea-1)) );
     % redun       = mean( Ixx(:,1:fea-1) , 2 ); % issue: change size for every loop
-    redun         = ( redun*(fea-2) + Ixx(:,fea-1) ) / (fea-1);
+    redun         = ( redun*(fea-2) + Ixx(:,fea-1) ) / 
     
     % select the feature with incremental mRMR
     [~, idxF]   = max(Ixc - redun);
@@ -43,7 +44,7 @@ for fea = 2 : nSelect
     
     % drop the selected feature
     Ixx(      idxF, : ) = [];
-    redun(    idxF    ) = [];
+    redun(    idxF,   ) = [];
     remainFea(idxF    ) = [];
     Ixc(      idxF    ) = [];
     dimRemain           = dimRemain - 1;
