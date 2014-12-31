@@ -33,6 +33,6 @@ negHy   = Py * log(Py)';
 
 % Mutual information
 mi      = negHxy - negHx - negHy;
-mi      = mi/log(2);
+%mi      = mi/log(2);
 
 end

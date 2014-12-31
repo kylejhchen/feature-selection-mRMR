@@ -9,9 +9,16 @@ dataX = dataset(:,2:end);
 
 nSelect = 10;
 
-tic;
-myFea   = mRMR(dataX, dataC, nSelect);
-toc;
+
+% ===== Test for candidateFeature =====
+nMRMR = 150;
+
+candiFea = candidateFeature(dataX, dataC, nMRMR, wrapper, classifier)
+
+% ===== Test for mRMR =====
+% tic;
+% myFea   = mRMR(dataX, dataC, nSelect);
+% toc;
 % tic;
 % feaPeng = mrmr_mid_d(dataX, dataC, nSelect);
 % toc;
