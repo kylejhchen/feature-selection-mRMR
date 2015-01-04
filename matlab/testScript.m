@@ -11,7 +11,14 @@ wrapper = 'back';
 classifier = 'NB';
 errThres = 1e-1;
 candiFea = candidateFeature(dataX, dataC, nMRMR, classifier, errThres);
-cmptFea = compactWrapper(dataX, dataC, candiFea, classifier, wrapper);
+% cmptFea = compactWrapper(dataX, dataC, candiFea, classifier, wrapper);
+forCmptFea = compactWrapper(dataX, dataC, candiFea, classifier, 'for');
+backCmptFea = compactWrapper(dataX, dataC, candiFea, classifier, 'back');
+
+kFold = 10;
+cvErrEst(dataX(:,candiFea), dataC, classifier, kFold)
+cvErrEst(dataX(:,forCmptFea), dataC, classifier, kFold)
+cvErrEst(dataX(:,backCmptFea), dataC, classifier, kFold)
 
 % ===== Test for candidateFeature =====
 % load fisheriris

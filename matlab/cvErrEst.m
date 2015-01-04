@@ -1,3 +1,6 @@
+% feature-selection-mRMR
+% Created by Jiahong K. Chen
+
 function [meanErr, varErr, mt2Err] = cvErrEst(dataX, dataC, classifier, kFold)
 
 % not support for R2011a
