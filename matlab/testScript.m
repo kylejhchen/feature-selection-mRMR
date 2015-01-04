@@ -6,12 +6,12 @@ clear; clc;
 load('/Users/kylechen/Dropbox/Github/feature-selection-mRMR/dataset/mfeat/binarizedData.mat');
 dataX = double(binarizedData);
 dataC = kron((1:10)',ones(200,1));
-nMRMR = 20;
-% wrapper = 'back';
+nMRMR = 100;
+wrapper = 'back';
 classifier = 'NB';
 errThres = 1e-1;
 candiFea = candidateFeature(dataX, dataC, nMRMR, classifier, errThres);
-
+cmptFea = compactWrapper(dataX, dataC, candiFea, classifier, wrapper);
 
 % ===== Test for candidateFeature =====
 % load fisheriris
