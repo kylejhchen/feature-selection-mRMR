@@ -4,10 +4,13 @@ clear; clc;
 
 % ===== Test for candidateFeature =====
 load('/Users/kylechen/Dropbox/Github/feature-selection-mRMR/dataset/mfeat/binarizedData.mat');
-dataX = binarizedData;
-dataC = kron((1:10)',);
-
-
+dataX = double(binarizedData);
+dataC = kron((1:10)',ones(200,1));
+nMRMR = 20;
+% wrapper = 'back';
+classifier = 'NB';
+errThres = 1e-1;
+candiFea = candidateFeature(dataX, dataC, nMRMR, classifier, errThres);
 
 
 % ===== Test for candidateFeature =====
