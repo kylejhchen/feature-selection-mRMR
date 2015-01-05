@@ -75,7 +75,6 @@ errRcd      = [];
 while conti
     
     m       = length(candiFea);
-    if (m==0); break; end;
     
     errK    = 1;
     goodIdx = 0;
@@ -91,9 +90,10 @@ while conti
     
     if errK <= errClass
         cmptFea = [cmptFea; candiFea(goodIdx)];
+        candiFea(goodIdx)    = [];
         if errK < errClass; cmptIdx = length(cmptFea); end;
         errClass = errK;
-        errRcd              = [errRcd; errClass];
+        errRcd  = [errRcd; errClass];
     else
         cmptFea = cmptFea(1:cmptIdx);
         errRcd  = errRcd(1:cmptIdx);
