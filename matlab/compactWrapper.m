@@ -9,18 +9,20 @@
 %       classifier  , 'NB' or 'LDA'
 % Output: compact feature
 
-function cmptFea = compactWrapper(dataX, dataC, candiFea, classifier, wrapper)
+function [ cmptFea, errRcd ] = compactWrapper(dataX, dataC, candiFea, classifier, wrapper)
 
 kFold = 10;
 if strcmp(wrapper, 'back')
-    cmptFea = backWrapper(dataX, dataC, candiFea, classifier, kFold);
+    [ cmptFea, errRcd ] = backWrapper(dataX, dataC, candiFea, classifier, kFold);
 elseif strcmp(wrapper, 'for')
-    cmptFea = forWrapper(dataX, dataC, candiFea, classifier, kFold);
+    [ cmptFea, errRcd ] = forWrapper(dataX, dataC, candiFea, classifier, kFold);
 end
 
 end
 
-function cmptFea = backWrapper(dataX, dataC, candiFea, classifier, kFold)
+
+% backward wrapper
+function [ cmptFea, errRcd ] = backWrapper(dataX, dataC, candiFea, classifier, kFold)
 
 conti       = true;
 errClass    = cvErrEst(dataX(:,candiFea), dataC, classifier, kFold);
@@ -28,6 +30,7 @@ errClass    = cvErrEst(dataX(:,candiFea), dataC, classifier, kFold);
 while conti
 
     m       = length(candiFea);
+    if (m==0); break; end;
     errK    = 1;
     badIdx  = 0;
     
@@ -49,20 +52,30 @@ while conti
     end
 
 end
+
+nCmptFea = length(cmptFea);
+errRcd   = zeros(nCmptFea, 1);
+for Sid = 1 : nCmptFea
+    idx = candiFea(1:Sid);
+    errRcd(Sid) = cvErrEst(dataX(:,idx), dataC, classifier, kFold);
+end
     
 end
 
-function cmptFea = forWrapper(dataX, dataC, candiFea, classifier, kFold)
+% forward wrapper
+function [ cmptFea, errRcd ] = forWrapper(dataX, dataC, candiFea, classifier, kFold)
 
 conti       = true;
 
 errClass    = 1;
 cmptFea     = [];
 cmptIdx     = 0;
+errRcd      = [];
 
 while conti
     
     m       = length(candiFea);
+    
     errK    = 1;
     goodIdx = 0;
     
@@ -77,11 +90,14 @@ while conti
     
     if errK <= errClass
         cmptFea = [cmptFea; candiFea(goodIdx)];
+        candiFea(goodIdx)    = [];
         if errK < errClass; cmptIdx = length(cmptFea); end;
         errClass = errK;
+        errRcd  = [errRcd; errClass];
     else
         cmptFea = cmptFea(1:cmptIdx);
-        conti = false;
+        errRcd  = errRcd(1:cmptIdx);
+        conti   = false;
     end
     
 end
