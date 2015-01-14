@@ -8,7 +8,14 @@
 %       classifier  , 'NB' or 'LDA'
 % Output: candidate feature set
 
-function obj = candidateFeature(obj, nMRMR, classifier, errThres, kFold)
+function obj = findCandidateFeature(obj, nMRMR, classifier, errThres, kFold)
+
+if nargin == 1
+    nMRMR       = obj.nMRMR;
+    classifier  = obj.classifier;
+    errThres    = obj.errThres;
+    kFold       = obj.kFold;
+end
 
 mrmrFea = mRMR(obj.dataX, obj.dataC, nMRMR);
 
@@ -30,6 +37,7 @@ goodIdx         = find(mt2Err < errThres);
 
 obj.candiFea    = mrmrFea( 1 : goodIdx(greatIdx) );
 obj.mrmrFea     = mrmrFea;
+
 obj.nMRMR       = nMRMR;
 obj.classifier  = classifier;
 obj.errThres    = errThres;

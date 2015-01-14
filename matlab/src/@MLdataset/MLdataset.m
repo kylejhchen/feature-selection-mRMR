@@ -1,56 +1,72 @@
-classdef MLdataset
+
+
+classdef MLdataset < matlab.mixin.SetGet
     
     properties
         rawDataX
         rawDataC
-
+    end % raw data
+    
+    properties (SetAccess = private)
+        preDataMtd
         dataX
         dataC
-        
+    end % processed data
+    
+    properties (SetAccess = private)
         nMRMR
         wrapper
         classifier
         errThres
         kFold
-        
+    end % model parameter
+    
+    properties (SetAccess = private)
         mrmrFea
         candiFea
         cmptFea
         errRcd
-    end
+    end % model results
+    
+    properties
+       hPlot 
+    end % figure properties
     
     methods
         
+        % Construtor
         function obj = MLdataset(rawX, rawC)
             obj.rawDataX = rawX;
             obj.rawDataC = rawC;
             obj.dataX    = rawX;
             obj.dataC    = rawC;
-        end
+        end % MLdataset
         
-%         function obj = set.dataX(obj, dataX)
-%             obj.dataX = dataX;
-%         end
-%         function obj = set.dataC(obj, dataC)
-%             obj.dataC = dataC;
-%         end
+        % Parameter setter
+        setModelPara(obj, nMRMR, classifier, wrapper, errThres, kFold)
+        set(obj, PropName, value)
         
-    end
+    end % Parameter settings
     
     methods
         
         % preprocessing data
-        obj = prepareData(obj, method)
-        obj = candidateFeature(obj, nMRMR, classifier, errThres, kFold)
-        obj = compactWrapper(obj, wrapper)
-        hPlot = plot(obj, plotOpt, hPlot)
+        prepareData(obj, method)
         
-    end
+        % feature selection
+        findCandidateFeature(obj, nMRMR, classifier, errThres, kFold)
+        compactWrapper(obj, wrapper)
+        
+        % ploting tools
+        plot(obj, plotOpt)
+        saveImage(obj, filename)
+        
+    end % Public methods
     
-    methods (Access = private)
-        mi = mutualInfoDis(obj, x, y)
-        bMI = bundleMI(obj, X, y)
-        [meanErr, varErr, mt2Err] = cvErrEst(obj, dataX, dataC, classifier, kFold)
-    end
+%     methods (Access = private)
+%         mi = mutualInfoDis(obj, x, y)
+%         bMI = bundleMI(obj, X, y)
+%         [meanErr, varErr, mt2Err] = cvErrEst(obj, dataX, dataC, classifier, kFold)
+%     end
     
 end

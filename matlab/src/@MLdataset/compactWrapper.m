@@ -11,6 +11,10 @@
 
 function obj = compactWrapper(obj, wrapper)
 
+if nargin == 1
+    wrapper = obj.wrapper;
+end
+
 kFold = 10;
 if strcmp(wrapper, 'back')
     [ cmptFea, errRcd ] = backWrapper(obj.dataX, obj.dataC, obj.candiFea, obj.classifier, kFold);
