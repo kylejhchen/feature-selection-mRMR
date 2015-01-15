@@ -34,6 +34,7 @@ function [ cmptFea, errRcd ] = backWrapper(dataX, dataC, candiFea, classifier, k
 
 conti       = true;
 errClass    = cvErrEst(dataX(:,candiFea), dataC, classifier, kFold);
+errRcd      = errClass;
 
 while conti
 
@@ -54,18 +55,12 @@ while conti
     if errK <= errClass
         candiFea(badIdx)    = [];
         errClass            = errK;
+        errRcd              = [errRcd; errClass];
     else
         cmptFea             = candiFea;
         conti               = false;
     end
 
-end
-
-nCmptFea = length(cmptFea);
-errRcd   = zeros(nCmptFea, 1);
-for Sid = 1 : nCmptFea
-    idx = candiFea(1:Sid);
-    errRcd(Sid) = cvErrEst(dataX(:,idx), dataC, classifier, kFold);
 end
     
 end
@@ -78,7 +73,7 @@ conti       = true;
 errClass    = 1;
 cmptFea     = [];
 cmptIdx     = 0;
-errRcd      = [];
+errRcd      = 1;
 
 while conti
     
@@ -104,7 +99,7 @@ while conti
         errRcd  = [errRcd; errClass];
     else
         cmptFea = cmptFea(1:cmptIdx);
-        errRcd  = errRcd(1:cmptIdx);
+        errRcd  = errRcd(1:cmptIdx+1);
         conti   = false;
     end
     
