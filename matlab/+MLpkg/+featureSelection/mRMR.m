@@ -17,7 +17,7 @@ dimF        = size(dataX, 2);
 remainFea   = (1:dimF);
 
 % mutual info of dataX and dataC, dimFea-by-1
-Ixc     = bundleMI(dataX, dataC);
+Ixc     = MLpkg.mutualInformation.bundleMI(dataX, dataC);
 
 % select the first feature with max-Rev
 [~, idxF]          = max(Ixc);
@@ -33,7 +33,7 @@ Ixx     = zeros(dimRemain, nSelect-1);
 redun   = zeros(dimRemain, 1);
 for fea = 2 : nSelect
     
-    Ixx(:, fea-1) = bundleMI( dataX(:,remainFea) , dataX(:,slctFea(fea-1)) );
+    Ixx(:, fea-1) = MLpkg.mutualInformation.bundleMI( dataX(:,remainFea) , dataX(:,slctFea(fea-1)) );
     % redun       = mean( Ixx(:,1:fea-1) , 2 ); % issue: change size for every loop
     redun         = ( redun*(fea-2) + Ixx(:,fea-1) ) / (fea-1);
     

@@ -5,7 +5,7 @@ function obj = prepareData(obj, method)
     
     obj.preDataMtd = method;
     if strcmp(method, 'binarize')
-        obj.dataX = binarizeData(obj.rawDataX);
+        obj.dataX = MLpkg.dataProcessing.binarize(obj.rawDataX);
     end
 
 end

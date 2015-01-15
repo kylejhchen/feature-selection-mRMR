@@ -11,7 +11,7 @@ k   = size(X, 2);
 bMI = zeros( k , 1 );
 
 for i = 1 : k
-    bMI(i) = mutualInfoDis(X(:,i), y);
+    bMI(i) = MLpkg.mutualInformation.mutualInfoDis(X(:,i), y);
 end
 
 end

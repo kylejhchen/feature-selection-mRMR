@@ -17,7 +17,7 @@ if nargin == 1
     kFold       = obj.kFold;
 end
 
-mrmrFea = mRMR(obj.dataX, obj.dataC, nMRMR);
+mrmrFea = MLpkg.featureSelection.mRMR(obj.dataX, obj.dataC, nMRMR);
 
 meanErr = zeros(nMRMR, 1);
 varErr  = zeros(nMRMR, 1);

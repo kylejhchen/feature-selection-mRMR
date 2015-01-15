@@ -1,6 +1,7 @@
+% feature-selection-mRMR
+% Created by Jiahong K. Chen
 
-
-classdef MLdataset < matlab.mixin.SetGet
+classdef CmptFeatureMRMR < matlab.mixin.SetGet
     
     properties
         rawDataX
@@ -13,7 +14,7 @@ classdef MLdataset < matlab.mixin.SetGet
         dataC
     end % processed data
     
-    properties (SetAccess = private)
+    properties (SetAccess = public)
         nMRMR
         wrapper
         classifier
@@ -35,7 +36,7 @@ classdef MLdataset < matlab.mixin.SetGet
     methods
         
         % Construtor
-        function obj = MLdataset(rawX, rawC)
+        function obj = CmptFeatureMRMR(rawX, rawC)
             obj.rawDataX = rawX;
             obj.rawDataC = rawC;
             obj.dataX    = rawX;
@@ -59,14 +60,14 @@ classdef MLdataset < matlab.mixin.SetGet
         
         % ploting tools
         plot(obj, plotOpt)
-        saveImage(obj, filename)
+%         saveImage(obj, filename)
         
     end % Public methods
     
-%     methods (Access = private)
-%         mi = mutualInfoDis(obj, x, y)
-%         bMI = bundleMI(obj, X, y)
-%         [meanErr, varErr, mt2Err] = cvErrEst(obj, dataX, dataC, classifier, kFold)
-%     end
+    methods (Access = private)
+        
+        [meanErr, varErr, mt2Err] = cvErrEst(dataX, dataC, classifier, kFold)
+    
+    end % Private methods
     
 end

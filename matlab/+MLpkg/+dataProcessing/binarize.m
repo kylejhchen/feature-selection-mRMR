@@ -3,7 +3,7 @@
 
 % To binarize the raw data
 
-function newData = binarizeData(orgData)
+function newData = binarize(orgData)
 
 [m, n] = size(orgData);
 
