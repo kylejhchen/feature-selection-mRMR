@@ -2,7 +2,7 @@
 clear; cc;
 % import MLpkg.*;
 
-dataPath    = '/Users/kylechen/Dropbox/Github/feature-selection-mRMR/matlab/data/';
+dataPath    = '/Users/kylechen/Dropbox/Github/feature-selection-mRMR/matlab/exampleHDR/';
 dataSet     = 'mfeat.mat';
 dataFile    = [dataPath, dataSet];
 load(dataFile);
@@ -11,7 +11,7 @@ rawX        = rawData;
 dataC       = kron((1:10)',ones(200,1));
 preDataMtd  = 'binarize';
 
-nMRMR       = 50;
+nMRMR       = 12;
 wrapper     = 'for';
 classifier  = 'NB';
 errThres    = 1e-1;

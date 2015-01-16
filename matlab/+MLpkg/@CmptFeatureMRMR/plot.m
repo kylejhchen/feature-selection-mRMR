@@ -16,7 +16,7 @@ elseif strcmp(obj.wrapper, 'for')
 end
 
 plot(iter, obj.errRcd, plotOpts);
-if strcmp(obj.wrapper, 'back');  set(gca, 'XDir', 'reverse'); end;
+if strcmp(obj.wrapper, 'back'); set(gca, 'XDir', 'reverse'); end;
 title(titleStr, 'fontsize', 16);
 xlabel('feature number', 'FontSize', 16);
 ylabel('error rate', 'FontSize', 16);

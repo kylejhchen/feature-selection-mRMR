@@ -30,20 +30,22 @@ dimRemain          = dimF-1; % = length(remainFea)
 
 % mutual info of xj, xi
 Ixx     = zeros(dimRemain, nSelect-1);
-redun   = zeros(dimRemain, 1);
+redunSum   = zeros(dimRemain, 1);
+
 for fea = 2 : nSelect
     
     Ixx(:, fea-1) = MLpkg.mutualInformation.bundleMI( dataX(:,remainFea) , dataX(:,slctFea(fea-1)) );
     % redun       = mean( Ixx(:,1:fea-1) , 2 ); % issue: change size for every loop
-    redun         = ( redun*(fea-2) + Ixx(:,fea-1) ) / (fea-1);
-    
+    % redun       = ( redunSum*(fea-2) + Ixx(:,fea-1) ) / (fea-1);
+    redunSum      = redunSum + Ixx(:,fea-1);
+
     % select the feature with incremental mRMR
-    [~, idxF]   = max(Ixc - redun);
+    [~, idxF]   = max( Ixc - redunSum/(fea-1) );
     slctFea(fea)= remainFea(idxF);
     
     % drop the selected feature
     Ixx(      idxF, : ) = [];
-    redun(    idxF    ) = [];
+    redunSum(    idxF    ) = [];
     remainFea(idxF    ) = [];
     Ixc(      idxF    ) = [];
     dimRemain           = dimRemain - 1;
